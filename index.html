@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brochure Interactivo</title>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #1e1e24;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .flipbook-container {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      margin: 20px 0;
+    }
+
+    .page {
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .page img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .controls {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .btn-nav {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn-nav:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    .btn-nav:active {
+      transform: translateY(0);
+    }
+
+    .page-info {
+      color: #fff;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <div id="flipbook" class="flipbook-container">
+      <div class="page"><img src="images/page-1.jpg" alt="Página 1" /></div>
+      <div class="page"><img src="images/page-2.jpg" alt="Página 2" /></div>
+      <div class="page"><img src="images/page-3.jpg" alt="Página 3" /></div>
+      <div class="page"><img src="images/page-4.jpg" alt="Página 4" /></div>
+      <div class="page"><img src="images/page-5.jpg" alt="Página 5" /></div>
+      <div class="page"><img src="images/page-6.jpg" alt="Página 6" /></div>
+      <div class="page"><img src="images/page-7.jpg" alt="Página 7" /></div>
+      <div class="page"><img src="images/page-8.jpg" alt="Página 8" /></div>
+      <div class="page"><img src="images/page-9.jpg" alt="Página 9" /></div>
+      <div class="page"><img src="images/page-10.jpg" alt="Página 10" /></div>
+      <div class="page"><img src="images/page-11.jpg" alt="Página 11" /></div>
+      <div class="page"><img src="images/page-12.jpg" alt="Página 12" /></div>
+      <div class="page"><img src="images/page-13.jpg" alt="Página 13" /></div>
+      <div class="page"><img src="images/page-14.jpg" alt="Página 14" /></div>
+      <div class="page"><img src="images/page-15.jpg" alt="Página 15" /></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn-nav" id="btn-prev">❮ Anterior</button>
+      <button class="btn-nav" id="btn-next">Siguiente ❯</button>
+    </div>
+
+    <div class="page-info" id="page-counter">Página 1 de 15</div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const pageFlip = new St.PageFlip(
+        document.getElementById('flipbook'),
+        {
+          width: 400,
+          height: 600,
+          size: "fixed",
+          minWidth: 300,
+          maxWidth: 1000,
+          minHeight: 400,
+          maxHeight: 1200,
+          maxShadowOpacity: 0.5,
+          showCover: true,
+          mobileScrollSupport: false
+        }
+      );
+
+      pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+
+      document.getElementById('btn-prev').addEventListener('click', () => {
+        pageFlip.flipPrev();
+      });
+
+      document.getElementById('btn-next').addEventListener('click', () => {
+        pageFlip.flipNext();
+      });
+
+      pageFlip.on('flip', (e) => {
+        document.getElementById('page-counter').innerText = 
+          `Página ${e.data + 1} de ${pageFlip.getPageCount()}`;
+      });
+    });
+  </script>
+</body>
+</html>
